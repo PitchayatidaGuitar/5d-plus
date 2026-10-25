@@ -290,6 +290,12 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
 .mapbox .zm button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.3rem;cursor:pointer}
 .mapbox .at{position:absolute;left:6px;bottom:4px;font-size:.62rem;background:rgba(255,255,255,.8);color:#333;padding:1px 5px;border-radius:6px}
 #subjBar{display:none!important}
+
+#bell{background:#fff3c4;border-color:#f2b705;color:#3b2a00;position:relative}
+#bell b{background:#c8312b;color:#fff;border-radius:99px;padding:0 8px;font-size:.8rem;min-width:22px;text-align:center}
+#nfBanner{display:flex;gap:10px;align-items:center;background:var(--bad-soft,#fbdedc);border:1px solid var(--bad);border-radius:16px;padding:10px 14px;margin:0 0 14px;font-weight:600}
+#nfBanner span{flex:1;min-width:0}
+.fu-s{display:inline-block;border-radius:99px;padding:2px 10px;font-size:.78rem;font-weight:700;background:var(--brand2);color:#fff}
 @media (max-width:380px){.two,.g2{grid-template-columns:1fr}.cover h1{font-size:2.2rem}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -354,6 +360,18 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
   <div class="wrap"><div id="sumBody"></div></div>
 </section>
 
+<!-- ================= NOTIF ================= -->
+<section class="view" id="v-notif" hidden style="--h:var(--c-alert)" data-title="แจ้งเตือน">
+  <div class="top"><div class="wrap"><button class="back" data-go="home"><svg class="i"><use href="#i-back"/></svg>กลับ</button><span class="t">แจ้งเตือน</span></div></div>
+  <div class="wrap">
+    <div class="hero"><span class="big" style="font-size:1.8rem;display:grid;place-items:center">🔔</span><div><h2>ผู้ที่ต้องติดตาม</h2><p>ความเสี่ยงสูง คำขอความช่วยเหลือ และถึงกำหนดนัด</p></div></div>
+    <div id="nfTok" class="card" hidden><h3>ใส่รหัสอ่านข้อมูล</h3><p class="cap">ใส่ READ_TOKEN ที่ตั้งไว้ใน Apps Script เพื่อดูรายชื่อ ระบบจำรหัสไว้จนกว่าจะปิดหน้าต่าง</p><div class="field"><label for="nt-tok">รหัสอ่านข้อมูล</label><input id="nt-tok" type="password" autocomplete="off"></div><button class="btn full" id="nt-go" type="button">เชื่อมต่อ</button><div id="nt-msg" class="cap" aria-live="polite"></div></div>
+    <div class="fil"><select id="nf-m" aria-label="หมู่บ้าน"><option value="">ทุกหมู่</option></select><button class="btn ghost" id="nf-r" style="min-height:44px" type="button">รีเฟรช</button></div>
+    <p class="cap" id="nfStamp"></p>
+    <div id="nfList"></div>
+  </div>
+</section>
+
 <!-- ================= LOOKUP ================= -->
 <section class="view" id="v-lookup" hidden style="--h:var(--c-eval)" data-title="ค้นหาผู้รับบริการ">
   <div class="top"><div class="wrap"><button class="back" data-go="home"><svg class="i"><use href="#i-back"/></svg>กลับ</button><span class="t">ค้นหาผู้รับบริการ</span></div></div>
@@ -399,7 +417,7 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
         <p class="addr">ตำบลบัวตูม อำเภอโซ่พิสัย จังหวัดบึงกาฬ</p>
       </div>
       <div class="homeclk" id="homeClk" aria-label="วันที่และเวลาปัจจุบัน"></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;max-width:100%"><button class="userchip" id="uChip" data-go="account" hidden></button><button class="userchip" id="uOut" hidden>ออกจากระบบ</button></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;max-width:100%"><button class="userchip" id="uChip" data-go="account" hidden></button><button class="userchip" id="bell" data-go="notif" hidden>🔔 แจ้งเตือน <b id="bellN">0</b></button><button class="userchip" id="uOut" hidden>ออกจากระบบ</button></div>
     </div>
   </header>
 
@@ -410,6 +428,7 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
       <button data-a="elder" aria-pressed="false"><svg class="i"><use href="#i-elder"/></svg>ผู้สูงอายุ<small>60 ปีขึ้นไป</small></button>
     </div>
 
+    <div id="nfBanner" hidden><span id="nfBannerTxt"></span><button class="btn" style="min-height:40px" data-go="notif">ดูรายชื่อ</button></div>
     <div class="hello"><span class="wv">👋</span><span id="helloTxt">สวัสดี มาดูแลสุขภาพกันนะ</span></div>
     <div class="lab">เลือกหัวข้อสุขภาพ</div>
     <div class="menu">
@@ -1610,7 +1629,7 @@ function loginBind(){
   };
 }
 function doLogin(id){session=id;store.set('session',id);usage=null;applyMember();hist('reg','เข้าสู่ระบบ','');go('home')}
-function logout(){usageFlush();usage=null;session=null;store.set('session',null);store.set('subj',null);$('#subjBar').hidden=true;$('#uOut').hidden=true;alerts={};badge();authTab='login';authRender();$('#uChip').hidden=true;go('auth')}
+function logout(){clearInterval(nfT);nfT=null;$('#bell').hidden=true;$('#nfBanner').hidden=true;usageFlush();usage=null;session=null;store.set('session',null);store.set('subj',null);$('#subjBar').hidden=true;$('#uOut').hidden=true;alerts={};badge();authTab='login';authRender();$('#uChip').hidden=true;go('auth')}
 function regBind(role,prev,isNew){
   const upd=()=>{const dd=+$('#rg-dd').value,mm=+$('#rg-mm').value,yb=+$('#rg-yy').value;const a=dd&&mm&&yb?calcAge(dd,mm,yb):null;$('#rg-age').textContent=a?`อายุ ${ageTxt(a)}`:(dd&&mm&&yb?'วันเกิดไม่ถูกต้อง':'')};
   ['rg-dd','rg-mm','rg-yy'].forEach(i=>$('#'+i).addEventListener('change',upd));upd();
@@ -1651,7 +1670,7 @@ function applyMember(){
   if($('#hp-t'))$('#hp-t').value=u.phone;
   $('#uOut').hidden=false;
   applySubject();
-  $('#consoleTile').hidden=u.role==='client';$('#lookupTile').hidden=u.role==='client';$('#helloTxt').textContent='สวัสดี คุณ'+u.name.split(' ')[0]+' วันนี้ดูแลสุขภาพกันนะ';
+  $('#consoleTile').hidden=u.role==='client';$('#lookupTile').hidden=u.role==='client';nfStart();$('#helloTxt').textContent='สวัสดี คุณ'+u.name.split(' ')[0]+' วันนี้ดูแลสุขภาพกันนะ';
   if(u.role!=='client')$('#conTxt').textContent=u.role==='staff'?'ภาพรวมทั้งหมด ข้อมูลผู้รับบริการ ผลประเมิน ความพึงพอใจ ความช่วยเหลือ พิกัดบ้าน':'ข้อมูลผู้รับบริการ ภาวะเสี่ยง และการขอความช่วยเหลือในพื้นที่';
   usageInit();if(!u.synced&&db)pushMember(u);
   authRender();
@@ -1689,7 +1708,7 @@ async function sheetGet(col){
     if(o.id==null&&col==='members')o.id=o._id;return o});
 }
 $('#ct-go').onclick=async()=>{const t=$('#ct-tok').value.trim();if(!t)return;READTOK=t;$('#ct-msg').textContent='กำลังตรวจสอบรหัส...';
-  try{await sheetGet('members');$('#ct-msg').textContent='✓ เชื่อมต่อ Google Sheets แล้ว';conLoad()}catch(e){READTOK=null;$('#ct-msg').textContent='รหัสไม่ถูกต้อง หรือเชื่อมต่อไม่ได้ ('+(e.message||e)+')'}};
+  try{await sheetGet('members');try{sessionStorage.setItem('rt',t)}catch(e){}$('#ct-msg').textContent='✓ เชื่อมต่อ Google Sheets แล้ว';conLoad();nfLoad()}catch(e){READTOK=null;$('#ct-msg').textContent='รหัสไม่ถูกต้อง หรือเชื่อมต่อไม่ได้ ('+(e.message||e)+')'}};
 async function conLoad(){
   const u=me();if(!u||u.role==='client')return;
   if(!db&&!READTOK){$('#conTok').open=true;$('#conAccess').innerHTML='<div class="status q2"><span>!</span><span>ยังเชื่อมต่อฐานข้อมูลไม่ได้ ต้องเปิดแอปด้วยบัญชี claude.ai ที่ได้รับสิทธิ์จากเจ้าของแอป</span></div>';return}
@@ -1915,10 +1934,10 @@ function sumRender(){
 /* ================= LOOKUP (ค้นหาผู้รับบริการ เรียลไทม์) ================= */
 let lkSel=null,lkTimer=null,LK=null;
 async function lkFetch(){
-  if(READTOK){const o={};for(const c of ['members','health','results','help'])o[c]=await sheetGet(c);LK=o;return true}
+  if(READTOK){const o={};for(const c of ['members','health','results','help','followup']){try{o[c]=await sheetGet(c)}catch(e){o[c]=[];if(c==='members')throw e}}LK=o;return true}
   if(!db)return false;
   const out={};
-  for(const c of ['members','health','results','help']){try{out[c]=(await db.collection(c).limit(1000).get()).docs.flatMap(d=>Object.entries((d.data()||{}).m||{}).map(([k,v])=>({_id:k,...v})))}catch(e){out[c]=[]}}
+  for(const c of ['members','health','results','help','followup']){try{out[c]=(await db.collection(c).limit(1000).get()).docs.flatMap(d=>Object.entries((d.data()||{}).m||{}).map(([k,v])=>({_id:k,...v})))}catch(e){out[c]=[]}}
   LK=out;return true;
 }
 function lkStop(){clearInterval(lkTimer);lkTimer=null}
@@ -1935,17 +1954,15 @@ function lkDetail(){
   const rs=(LK.results||[]).filter(x=>x.memberId===id).sort((a,b)=>(b.ts||0)-(a.ts||0));
   const hp=(LK.help||[]).filter(x=>x.memberId===id).sort((a,b)=>(b.ts||0)-(a.ts||0));
   const rt=r=>r.type==='measure'?`${esc(r.title)} · ${esc(r.detail||'')}`:r.type==='quiz'?`ทดสอบความรู้ ${r.score}/${r.total}`:r.type==='shop'?`ประเมินร้านชำ ${r.pct}% · ${esc(r.level||'')}`:esc(r.type);
-  $('#lkRes').innerHTML=`<button class="btn ghost" id="lkBack" style="min-height:42px;margin-bottom:10px">← กลับไปรายชื่อ</button>
-  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="margin:0">${esc(m.name)}</h3><span class="live"><i></i>เรียลไทม์ ${fT.format(new Date())}</span></div>
+  lkSkel(id,m);fuHist();$('#lkData').innerHTML=`  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="margin:0">${esc(m.name)}</h3><span class="live"><i></i>เรียลไทม์ ${fT.format(new Date())}</span></div>
    <p style="margin:6px 0">${stPill(h?h.level:null)}</p>
    <dl class="kv"><dt>อายุ / เพศ</dt><dd>${a?ageTxt(a):'-'} · ${esc(m.sex||'')}</dd><dt>โทรศัพท์</dt><dd class="num">${esc(m.phone||'-')}</dd><dt>บัตรประชาชน</dt><dd class="num">${m.idcard?(u.role==='staff'?fmtId(m.idcard):maskId(m.idcard)):'-'}</dd><dt>ที่อยู่</dt><dd>${esc(m.house)} หมู่ ${esc(m.moo)} ต.${esc(m.tambon)} อ.${esc(m.amphoe)} จ.${esc(m.province)}</dd>${m.lat?`<dt>พิกัดบ้าน</dt><dd><a href="https://www.google.com/maps?q=${esc(m.lat)},${esc(m.lng)}" target="_blank" rel="noopener">เปิดแผนที่ 📍</a></dd>`:''}<dt>โรคประจำตัว</dt><dd>${esc([m.chronic,m.chronicOther].filter(Boolean).join(', ')||'-')}</dd><dt>ผู้ติดต่อฉุกเฉิน</dt><dd>${esc(m.emName||'-')} ${esc(m.emPhone||'')}</dd>${m.proxyBy?`<dt>ลงทะเบียนโดย</dt><dd>${esc(m.proxyByName)} (${ROLE[m.proxyByRole]||''})</dd>`:''}</dl></div>
   <h3 class="sec" style="font-size:1.05rem">ค่าสุขภาพล่าสุด</h3><div class="kpis"><div><b>${h&&h.bmi?h.bmi:'-'}</b><small>BMI</small></div><div><b>${h&&h.bp?h.bp:'-'}</b><small>ความดัน</small></div><div><b>${h&&h.glu?h.glu:'-'}</b><small>น้ำตาล</small></div><div><b>${h&&h.st5!=null?h.st5:'-'}</b><small>ST-5</small></div></div>
   ${h&&h.items?`<div class="callout warnbox"><b class="h">รายการเฝ้าระวัง</b>${esc(h.items).split(' | ').join('<br>')}<br><span class="cap">อัปเดต ${fdt(h.updated)}</span></div>`:''}
   <h3 class="sec" style="font-size:1.05rem">ผลที่ทำล่าสุด (${rs.length})</h3>${rs.slice(0,25).map(r=>`<div class="al" style="border-left-color:var(--brand2)">${rt(r)}<p class="cap" style="margin:2px 0 0">📅 ${fdt(r.ts)}${r.byName&&r.proxy?' · บันทึกโดย '+esc(r.byName):''}</p></div>`).join('')||'<p class="cap">ยังไม่มีผลการประเมิน</p>'}
   <h3 class="sec" style="font-size:1.05rem">คำขอความช่วยเหลือ (${hp.length})</h3>${hp.map(r=>`<div class="al" style="border-left-color:var(--bad)"><b>${esc(r.need||'')}</b><p>${esc(r.detail||r.note||'')}</p><p class="cap">📅 ${fdt(r.ts)}</p></div>`).join('')||'<p class="cap">ไม่มี</p>'}`;
-  $('#lkBack').onclick=()=>{lkStop();lkSel=null;lkList()};
 }
-async function lkRefresh(){await lkFetch();if(lkSel&&curView==='lookup')lkDetail()}
+async function lkRefresh(){await lkFetch();if(lkSel&&curView==='lookup')lkDetail();nfCompute()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-lk]');if(!b)return;lkSel=b.dataset.lk;lkDetail();lkStop();lkTimer=setInterval(lkRefresh,4000);window.scrollTo(0,0)});
 $('#lkForm').onsubmit=async e=>{
   e.preventDefault();if(!$('#lk-fn').value.trim()&&!$('#lk-ln').value.trim()&&!$('#lk-id').value.trim())return;
@@ -1954,7 +1971,89 @@ $('#lkForm').onsubmit=async e=>{
   lkSel=null;lkList();
 };
 
-const INIT={summary(){sumRender()},lookup(){const u=me();if(!u||u.role==='client'){go('home');return}$('#lkRes').innerHTML='';lkSel=null},people(){proxyMode=false;$('#pplForm').innerHTML='';peopleRender()},console(){const u=me();if(!u||u.role==='client'){go('home');return}cOpen()},account(){editing=false;accRender()},watch(){watchRender()},choice(){},quiz(){if(!qz.res&&qz.i!==-1&&qz.i===0&&!qz.ans.length)qz.i=-1;quizRender()},eval(){evalRender()},health(){}};
+
+/* ================= FOLLOW-UP (ติดตามเคส) ================= */
+const FUS=['ติดตามแล้ว (โทร/เยี่ยมบ้าน)','นัดตรวจต่อเนื่อง','ส่งต่อสถานพยาบาล','ปิดเคส'];
+const msOf=v=>typeof v==='number'?v:(Date.parse(v)||0);
+function lkSkel(id,m){
+  const R=$('#lkRes');if($('#lkData')&&$('#lkData').dataset.id===id)return;
+  R.innerHTML=`<button class="btn ghost" id="lkBack" style="min-height:42px;margin-bottom:10px">← กลับไปรายชื่อ</button><div id="lkData" data-id="${esc(id)}"></div>
+  <h3 class="sec" style="font-size:1.05rem">ติดตามเคส</h3>
+  <div class="card" id="lkFu"><div id="fuHist"></div>
+   <div class="field"><label for="fu-s">สถานะการติดตาม</label><select id="fu-s">${FUS.map(x=>`<option>${x}</option>`).join('')}</select></div>
+   <div class="field"><label for="fu-n">นัดติดตามครั้งถัดไป (ถ้ามี)</label><input id="fu-n" type="date"></div>
+   <div class="field"><label for="fu-t">หมายเหตุ / สิ่งที่ทำ</label><textarea id="fu-t" rows="3" placeholder="เช่น โทรสอบถามอาการ แนะนำปรับอาหาร นัดวัดความดันซ้ำ"></textarea></div>
+   <div id="fu-m" aria-live="polite"></div>
+   <button class="btn full" id="fu-b" type="button">บันทึกการติดตาม</button></div>`;
+  $('#lkBack').onclick=()=>{lkStop();lkSel=null;lkList()};
+  $('#fu-b').onclick=async()=>{
+    const a0=me(),mm=(LK.members||[]).find(x=>(x.id||x._id)===lkSel);if(!a0||!mm)return;
+    const rec={memberId:lkSel,name:mm.name,role:'client',moo:mm.moo,status:$('#fu-s').value,note:$('#fu-t').value.trim(),next:$('#fu-n').value,ts:Date.now(),byId:a0.id,byName:a0.name,byRole:a0.role};
+    $('#fu-m').innerHTML='<p class="cap">กำลังบันทึก...</p>';
+    const ok=await putRemote('followup','fu_'+lkSel+'_'+Date.now().toString(36),rec);
+    (LK.followup=LK.followup||[]).push({...rec,_id:'new'});
+    $('#fu-t').value='';$('#fu-n').value='';
+    $('#fu-m').innerHTML=statusHtml(ok);fuHist();nfCompute();
+  };
+}
+function fuHist(){
+  const e=$('#fuHist');if(!e)return;
+  const L=(LK.followup||[]).filter(x=>x.memberId===lkSel).sort((a,b)=>msOf(b.ts)-msOf(a.ts));
+  e.innerHTML=L.length?L.slice(0,10).map(f=>`<div class="al" style="border-left-color:var(--brand2)"><span class="fu-s">${esc(f.status)}</span> ${f.next?`<span class="cap">นัด ${esc(String(f.next).slice(0,10))}</span>`:''}<p>${esc(f.note||'-')}</p><p class="cap">📅 ${fdt(msOf(f.ts))} · ${esc(f.byName||'')} (${ROLE[f.byRole]||''})</p></div>`).join(''):'<p class="cap">ยังไม่เคยบันทึกการติดตาม</p>';
+}
+
+/* ================= NOTIFICATIONS (แจ้งเตือน) ================= */
+let NF=[],nfT=null;
+function nfCompute(){
+  const L=LK||{},today=new Date(Date.now()+7*36e5).toISOString().slice(0,10);
+  const mem={},hl={},fu={},hp={};
+  (L.members||[]).forEach(m=>{mem[m.id||m._id]=m});
+  (L.health||[]).forEach(h=>{hl[h.memberId||h._id]=h});
+  (L.followup||[]).forEach(f=>{const k=f.memberId;if(!fu[k]||msOf(f.ts)>msOf(fu[k].ts))fu[k]=f});
+  (L.help||[]).forEach(r=>{const k=r.memberId;if(k&&(!hp[k]||msOf(r.ts)>msOf(hp[k].ts)))hp[k]=r});
+  const ids=new Set([...Object.keys(hl),...Object.keys(hp),...Object.keys(fu)]),out=[];
+  ids.forEach(id=>{
+    const m=mem[id];if(!m||m.role!=='client')return;
+    const h=hl[id],lvl=h?+h.level||0:0,why=[];let ev=0;
+    if(lvl>=2){ev=Math.max(ev,msOf(h.updated));why.push((lvl===3?'เร่งด่วน':'เสี่ยงสูง')+(h.items?': '+String(h.items).split(' | ')[0]:''))}
+    if(hp[id]){ev=Math.max(ev,msOf(hp[id].ts));why.push('ขอความช่วยเหลือ: '+(hp[id].need||''))}
+    const f=fu[id],needs=ev>0&&(!f||msOf(f.ts)<ev),due=!!(f&&f.next&&String(f.next).slice(0,10)<=today&&f.status!==FUS[3]);
+    if(needs||due)out.push({id,name:m.name,moo:m.moo,lvl,why,needs,due,f});
+  });
+  out.sort((a,b)=>(b.lvl-a.lvl)||(+b.needs-+a.needs)||String(a.name).localeCompare(String(b.name),'th'));
+  NF=out;
+  const n=out.length;
+  const b=$('#bellN');if(b)b.textContent=n;
+  const bn=$('#nfBanner');if(bn){const u=me();bn.hidden=!(u&&u.role!=='client'&&n>0);$('#nfBannerTxt').textContent=`🔔 มี ${n} รายที่ต้องติดตาม (เสี่ยงสูง/เร่งด่วน ${out.filter(x=>x.lvl>=2&&x.needs).length} · ถึงกำหนดนัด ${out.filter(x=>x.due).length})`}
+  if(curView==='notif')nfRender();
+}
+async function nfLoad(){
+  const u=me();if(!u||u.role==='client')return;
+  if(!(READTOK||db)){if(curView==='notif')nfRender();return}
+  try{if(await lkFetch())nfCompute();else if(curView==='notif')nfRender()}catch(e){if(READTOK){READTOK=null;try{sessionStorage.removeItem('rt')}catch(x){}}if(curView==='notif')nfRender()}
+}
+function nfRender(){
+  const u=me();if(!u||u.role==='client')return;
+  const has=!!(READTOK||db);$('#nfTok').hidden=!!READTOK;
+  const sel=$('#nf-m'),cur=sel.value,moos=[...new Set((LK&&LK.members||[]).filter(m=>m.role==='client').map(m=>m.moo).filter(Boolean))].sort((a,b)=>a-b);
+  if(sel.options.length!==moos.length+1)sel.innerHTML='<option value="">ทุกหมู่</option>'+moos.map(m=>`<option value="${esc(m)}">หมู่ ${esc(m)}</option>`).join('');
+  sel.value=cur;
+  if(!has){$('#nfList').innerHTML='';$('#nfStamp').textContent='';return}
+  const L=NF.filter(x=>!sel.value||String(x.moo)===sel.value);
+  $('#nfStamp').textContent=`${L.length} ราย · อัปเดต ${fT.format(new Date())} (รีเฟรชเองทุก 1 นาที)`;
+  const grp=[['เร่งด่วน (ระดับ 3) ต้องติดตามทันที',x=>x.needs&&x.lvl===3,'var(--bad)'],['เสี่ยงสูง (ระดับ 2) ต้องติดตาม',x=>x.needs&&x.lvl===2,'#d2641b'],['ขอความช่วยเหลือ ยังไม่ได้ติดตาม',x=>x.needs&&x.lvl<2,'var(--warn)'],['ถึงกำหนดนัดติดตาม',x=>x.due&&!x.needs,'var(--brand2)']];
+  let html='';
+  grp.forEach(([t,fn,c])=>{const a=L.filter(fn);if(!a.length)return;html+=`<h3 class="sec" style="font-size:1.05rem">${t} (${a.length})</h3>`+a.map(x=>`<div class="al" style="border-left-color:${c}"><b>${esc(x.name)}</b> ${stPill(x.lvl)} <span class="cap">หมู่ ${esc(x.moo)}</span><p>${x.why.map(esc).join('<br>')}</p>${x.f?`<p class="cap">ติดตามล่าสุด: <span class="fu-s">${esc(x.f.status)}</span> ${fdt(msOf(x.f.ts))}${x.f.next?' · นัด '+esc(String(x.f.next).slice(0,10)):''}</p>`:'<p class="cap">ยังไม่เคยบันทึกการติดตาม</p>'}<button class="btn" style="min-height:44px" data-nf-open="${esc(x.id)}">ดูข้อมูลและบันทึกการติดตาม</button></div>`).join('')});
+  $('#nfList').innerHTML=html||'<div class="status ok"><span>✓</span><span>ไม่มีรายที่ต้องติดตามในขณะนี้</span></div>';
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-nf-open]');if(!b)return;window._lkOpen=b.dataset.nfOpen;go('lookup')});
+$('#nf-m').onchange=nfRender;$('#nf-r').onclick=nfLoad;
+$('#nt-go').onclick=async()=>{const t=$('#nt-tok').value.trim();if(!t)return;READTOK=t;$('#nt-msg').textContent='กำลังตรวจสอบรหัส...';
+  try{await sheetGet('members');try{sessionStorage.setItem('rt',t)}catch(e){}$('#nt-msg').textContent='✓ เชื่อมต่อแล้ว';await nfLoad()}catch(e){READTOK=null;$('#nt-msg').textContent='รหัสไม่ถูกต้อง หรือเชื่อมต่อไม่ได้'}};
+try{READTOK=sessionStorage.getItem('rt')||READTOK}catch(e){}
+function nfStart(){const u=me();clearInterval(nfT);nfT=null;$('#bell').hidden=!(u&&u.role!=='client');if(!u||u.role==='client'){$('#nfBanner').hidden=true;return}nfLoad();nfT=setInterval(nfLoad,60000)}
+
+const INIT={notif(){nfRender();nfLoad()},summary(){sumRender()},lookup(){const u=me();if(!u||u.role==='client'){go('home');return}$('#lkRes').innerHTML='';lkSel=null;if(window._lkOpen){lkSel=window._lkOpen;window._lkOpen=null;if(LK){lkDetail();lkStop();lkTimer=setInterval(lkRefresh,4000)}}},people(){proxyMode=false;$('#pplForm').innerHTML='';peopleRender()},console(){const u=me();if(!u||u.role==='client'){go('home');return}cOpen()},account(){editing=false;accRender()},watch(){watchRender()},choice(){},quiz(){if(!qz.res&&qz.i!==-1&&qz.i===0&&!qz.ans.length)qz.i=-1;quizRender()},eval(){evalRender()},health(){}};
 
 /* splash */
 (function(){const sp=document.getElementById('splash');let t=null;function hide(){clearTimeout(t);sp.classList.add('out');setTimeout(()=>{sp.hidden=true},550)}
