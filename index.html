@@ -203,6 +203,7 @@ nav.bar button[aria-current=true]{color:var(--brand);background:var(--soft)}
 .watchtile .ic svg{width:30px;height:30px}
 .watchtile b{font-family:var(--f-d);display:block;line-height:1.3}
 .watchtile small{color:var(--mut);display:block;line-height:1.35;font-size:.82rem}
+.tile .bdg{position:absolute;right:12px;top:52px;margin:0;z-index:2}
 .bdg{margin-left:auto;flex:none;min-width:34px;height:34px;border-radius:99px;display:grid;place-items:center;color:#fff;font-weight:700;font-family:var(--f-d);padding:0 8px}
 .al{border-radius:18px;padding:12px 14px;margin:10px 0;background:var(--card);border:1px solid var(--line);border-left-width:8px}
 .al b{font-family:var(--f-d)}
@@ -299,17 +300,17 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
 @media (max-width:380px){.two,.g2{grid-template-columns:1fr}.cover h1{font-size:2.2rem}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
-</head>
-<body>
-
 
 <!-- icon sprite -->
+</head>
+<body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-choice" viewBox="0 0 24 24"><path d="M3 9h18l-1.800 10.200a1.500 1.500 0 0 1-1.500 1.300H6.300a1.500 1.500 0 0 1-1.500-1.300z"/><path d="M8 9l3-5M16 9l-3-5"/><path d="M9 14.500l2 2 4-4.200"/></symbol>
   <symbol id="i-teeth" viewBox="0 0 24 24"><path d="M7.500 3.500C5 3.500 3.500 5.500 3.500 8c0 2 .8 3.300 1.500 5.100.7 1.900.8 4.300 1.600 6.300.4.900 1.600.9 2-.1.5-1.600.9-4 2.400-4s1.900 2.400 2.400 4c.4 1 1.600 1 2 .1.800-2 .9-4.400 1.600-6.300.7-1.800 1.500-3.100 1.500-5.100 0-2.500-1.500-4.500-4-4.500-1.700 0-2.500.8-4.500.8S9.200 3.500 7.500 3.500z"/></symbol>
   <symbol id="i-nutri" viewBox="0 0 24 24"><path d="M12 7.500C10.500 6 8 5.800 6.300 7.500 4.200 9.700 4.600 13.300 6.200 16.200c1.300 2.300 2.800 3.800 4.200 3.800.9 0 1.100-.5 1.600-.5s.7.500 1.600.5c1.400 0 2.900-1.500 4.200-3.800 1.600-2.900 2-6.500-.1-8.700C16 5.800 13.500 6 12 7.500z"/><path d="M12 7.500c0-2 1-3.600 3-4.500"/></symbol>
   <symbol id="i-health" viewBox="0 0 24 24"><path d="M12 20.500s-8.500-4.700-8.500-11A4.700 4.700 0 0 1 12 7a4.700 4.700 0 0 1 8.500 2.500c0 6.300-8.500 11-8.500 11z"/><path d="M6 12.500h3l1.500-3 3 6 1.500-3h3"/></symbol>
   <symbol id="i-env" viewBox="0 0 24 24"><path d="M3 11.500l9-7.500 9 7.500"/><path d="M5.500 10v10h13V10"/><path d="M12 17.500c0-3 1.800-5 5-5 0 3-1.800 5-5 5zM12 17.500v-3"/></symbol>
+  <symbol id="i-sum" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM8.500 12h7M8.500 15.500h7M8.500 9.500h.01"/></symbol>
   <symbol id="i-quiz" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.200 9.600a2.800 2.800 0 1 1 3.900 2.600c-.8.400-1.100 1-1.100 1.800M12 17h.01"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.700 5.600 6.100.8-4.500 4.300 1.100 6.100L12 16.900l-5.400 2.900 1.100-6.100L3.200 9.400l6.100-.8z"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
@@ -436,23 +437,24 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
       <button class="tile" style="--h:var(--c-teeth)" data-go="teeth" data-e="🦷"><span class="ic"><svg class="i"><use href="#i-teeth"/></svg></span><span><b>2. Good Teeth</b><span class="th">สุขภาพฟันดี<br>หลัก 2:2:2</span></span></button>
       <button class="tile" style="--h:var(--c-nutri)" data-go="nutri" data-e="🥗"><span class="ic"><svg class="i"><use href="#i-nutri"/></svg></span><span><b>3. Good Nutrition</b><span class="th">โภชนาการดี<br>ห่างไกล NCDs</span></span></button>
       <button class="tile" style="--h:var(--c-health)" data-go="health" data-e="💪"><span class="ic"><svg class="i"><use href="#i-health"/></svg></span><span><b>4. Good Health</b><span class="th">กาย–ใจ ดี<br>BMI · ความเครียด ST-5</span></span></button>
-      <button class="tile wide" style="--h:var(--c-env)" data-go="env" data-e="🌿"><span class="ic"><svg class="i"><use href="#i-env"/></svg></span><span><b>5. Good Environment 🌿</b><span class="th">สิ่งแวดล้อมดี · ร้านอาหาร แผงลอย บ้านและชุมชนสะอาด</span></span></button>
+      <button class="tile" style="--h:var(--c-env)" data-go="env" data-e="🌿"><span class="ic"><svg class="i"><use href="#i-env"/></svg></span><span><b>5. Good Environment</b><span class="th">สิ่งแวดล้อมดี<br>ร้านอาหาร บ้านและชุมชนสะอาด</span></span></button>
+      <button class="tile" style="--h:var(--c-health)" data-go="summary" data-e="📋"><span class="ic"><svg class="i"><use href="#i-sum"/></svg></span><span><b>สรุปผลข้อมูลทั้งหมด</b><span class="th">ผลที่ทำทุกอย่าง<br>พร้อมวันที่</span></span></button>
     </div>
 
-    <button class="watchtile" data-go="people" id="pplTile" data-e="🤝" style="--h:var(--brand2);margin-top:0;margin-bottom:12px"><span class="ic"><svg class="i"><use href="#i-adult"/></svg></span><span><b>🤝 ประเมินให้ผู้อื่น</b><small id="pplTxt">กำลังประเมินให้: ตัวฉันเอง · เพิ่มผู้รับบริการที่ไม่มีมือถือ</small></span></button>
-    <button class="watchtile" data-go="summary" data-e="📋" style="--h:var(--c-health);margin-top:0;margin-bottom:12px"><span class="ic"><svg class="i"><use href="#i-health"/></svg></span><span><b>📋 สรุปผลข้อมูลทั้งหมด</b><small>ผลการประเมินทุกอย่างที่ทำ พร้อมวันที่</small></span></button>
-    <button class="watchtile" id="lookupTile" data-go="lookup" data-e="🔎" hidden style="--h:var(--c-eval);margin-top:0;margin-bottom:12px"><span class="ic"><svg class="i"><use href="#i-adult"/></svg></span><span><b>🔎 ค้นหาผู้รับบริการ</b><small>พิมพ์ชื่อ-สกุล หรือเลขบัตรประชาชน ดูข้อมูลแบบเรียลไทม์</small></span></button>
-    <button class="watchtile" data-go="watch" data-e="🚨"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><span><b>🚨 ระบบเฝ้าระวัง/แจ้งเตือนภาวะเสี่ยง</b><small id="wTxt">ตรวจความดัน น้ำตาล BMI ความเครียด และกลุ่มเสี่ยง</small></span><span class="bdg" id="wBadge" hidden>0</span></button>
-
-    <button class="watchtile" id="consoleTile" data-go="console" hidden style="--h:var(--c-quiz)"><span class="ic"><svg class="i"><use href="#i-quiz"/></svg></span><span><b>🗂️ ข้อมูลหลังบ้าน</b><small id="conTxt">ดูข้อมูลผู้รับบริการ ภาวะเสี่ยง และการขอความช่วยเหลือ</small></span></button>
+    <div class="menu" style="margin-top:12px">
+      <button class="tile" id="pplTile" data-go="people" data-e="🤝" style="--h:var(--brand2)"><span class="ic"><svg class="i"><use href="#i-adult"/></svg></span><span><b>ประเมินให้ผู้อื่น</b><span class="th" id="pplTxt">ทำแทนผู้ที่ไม่มีมือถือ</span></span></button>
+      <button class="tile" data-go="watch" data-e="🚨" style="--h:var(--c-alert)"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><span><b>ระบบเฝ้าระวัง</b><span class="th" id="wTxt">แจ้งเตือนภาวะเสี่ยง</span></span><span class="bdg" id="wBadge" hidden>0</span></button>
+      <button class="tile" id="lookupTile" data-go="lookup" data-e="🔎" hidden style="--h:var(--c-eval)"><span class="ic"><svg class="i"><use href="#i-adult"/></svg></span><span><b>ค้นหาผู้รับบริการ</b><span class="th">ชื่อ-สกุล หรือเลขบัตร<br>ดูข้อมูลเรียลไทม์</span></span></button>
+      <button class="tile" id="consoleTile" data-go="console" data-e="🗂️" hidden style="--h:var(--c-quiz)"><span class="ic"><svg class="i"><use href="#i-sum"/></svg></span><span><b>ข้อมูลหลังบ้าน</b><span class="th" id="conTxt">ภาวะเสี่ยงและคำขอช่วยเหลือ</span></span></button>
+    </div>
 
     <div class="lab">พลัส</div>
-    <div class="row3">
-      <button class="mini" style="--h:var(--c-quiz)" data-go="quiz" data-e="📝"><span class="ic"><svg class="i"><use href="#i-quiz"/></svg></span>ทดสอบความรู้</button>
-      <button class="mini" style="--h:var(--c-eval)" data-go="eval" data-e="⭐"><span class="ic"><svg class="i"><use href="#i-star"/></svg></span>ประเมินความพึงพอใจ</button>
-      <button class="mini" style="--h:var(--brand2)" data-go="contact" data-e="📞"><span class="ic"><svg class="i"><use href="#i-phone"/></svg></span>ติดต่อ รพ.สต.</button>
+    <div class="menu">
+      <button class="tile" style="--h:var(--c-quiz)" data-go="quiz" data-e="📝"><span class="ic"><svg class="i"><use href="#i-quiz"/></svg></span><span><b>ทดสอบความรู้</b><span class="th">10 ข้อ ตรวจคะแนนอัตโนมัติ</span></span></button>
+      <button class="tile" style="--h:var(--c-eval)" data-go="eval" data-e="⭐"><span class="ic"><svg class="i"><use href="#i-star"/></svg></span><span><b>ประเมินความพึงพอใจ</b><span class="th">ให้ดาวและข้อเสนอแนะ</span></span></button>
+      <button class="tile" style="--h:var(--brand2)" data-go="contact" data-e="📞"><span class="ic"><svg class="i"><use href="#i-phone"/></svg></span><span><b>ติดต่อ รพ.สต.</b><span class="th">โทรหาเจ้าหน้าที่<br>ได้ทันที</span></span></button>
+      <button class="tile" id="homeOut" style="--h:var(--bad)"><span class="ic"><svg class="i"><use href="#i-back"/></svg></span><span><b>ออกจากระบบ</b><span class="th">ออกจากบัญชีนี้</span></span></button>
     </div>
-    <button class="btn ghost full" id="homeOut" style="--h:var(--bad);margin-top:16px">ออกจากระบบ</button>
     <p class="disc">แอปนี้ให้ความรู้ทั่วไป ไม่ใช่การวินิจฉัยหรือสั่งการรักษา หากมีอาการรุนแรง โทร 1669 หรือไปสถานพยาบาลที่ใกล้ที่สุด จัดทำโดย รพ.สต.บ้านนาเหว่อ ต.บัวตูม อ.โซ่พิสัย จ.บึงกาฬ</p>
   </div>
 </section>
@@ -756,6 +758,13 @@ tr.hl td{background:color-mix(in srgb,var(--h) 18%,var(--card));font-weight:700}
         <div id="stOut" aria-live="polite"></div>
         <button class="btn ghost full" id="stReset" style="margin-top:12px" hidden>ทำใหม่</button>
         <p class="cap">ผลนี้เป็นการคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัย และเก็บไว้ในเครื่องของคุณเท่านั้น ไม่ถูกส่งออก</p>
+      </div>
+
+      <h3 class="sec">แบบประเมินสุขภาพจิตและความเสี่ยงฆ่าตัวตาย</h3>
+      <div class="card" id="mhCard">
+        <p class="cap" style="margin-top:0">ชุดเครื่องมือคัดกรองของกรมสุขภาพจิต เริ่มจาก 2Q Plus ถ้ามีความเสี่ยง ระบบแนะนำให้ทำ 9Q และ 8Q ต่อ MIND-6 ให้ อสม. หรือผู้ดูแลสังเกตอาการของผู้อื่น และ ASSIST-LITE คัดกรองการใช้สารเสพติด</p>
+        <div class="tabs" id="mhTabs" role="tablist" aria-label="เลือกแบบประเมิน"></div>
+        <div id="mhBody"></div>
       </div>
 
       <h3 class="sec">ฝึกหายใจคลายเครียด</h3>
@@ -1216,7 +1225,7 @@ function statusHtml(ok){return ok?`<div class="status ok"><span>✓</span><span>
 document.addEventListener('click',async e=>{if(e.target.closest('[data-retry]')){await flush();const ok=pend().length===0;e.target.closest('.status').outerHTML=statusHtml(ok)}});
 
 /* --- history (ประวัติการใช้งาน) --- */
-const HK={envcheck:'ตรวจร้านเอง',special:'กลุ่มเสี่ยงเฝ้าระวัง',quiz:'ทดสอบความรู้',shop:'ประเมินร้านชำ',eval:'ประเมินความพึงพอใจ',help:'ขอความช่วยเหลือ',bmi:'BMI',st5:'ความเครียด ST-5',bp:'ความดันโลหิต',glu:'น้ำตาลในเลือด',reg:'บัญชี'};
+const HK={assist:'ASSIST-LITE',q2:'2Q Plus',q9:'9Q ซึมเศร้า',q8:'8Q เสี่ยงฆ่าตัวตาย',mind6:'MIND-6',envcheck:'ตรวจร้านเอง',special:'กลุ่มเสี่ยงเฝ้าระวัง',quiz:'ทดสอบความรู้',shop:'ประเมินร้านชำ',eval:'ประเมินความพึงพอใจ',help:'ขอความช่วยเหลือ',bmi:'BMI',st5:'ความเครียด ST-5',bp:'ความดันโลหิต',glu:'น้ำตาลในเลือด',reg:'บัญชี'};
 const dayKey=()=>new Date(Date.now()+7*36e5).toISOString().slice(0,10).replace(/-/g,'');
 function histUp(k,t,d){const h=store.get('history',[]),sid=subjId()||null,day=dayKey();const i=h.findIndex(x=>x.k===k&&x.m===sid&&new Date(x.ts+7*36e5).toISOString().slice(0,10).replace(/-/g,'')===day);if(i<0){hist(k,t,d);return}h[i].t=t;h[i].d=d||'';h[i].ts=Date.now();store.set('history',h)}
 function hist(k,t,d){const u=me();const h=store.get('history',[]);h.push({id:'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),k,t,d:d||'',ts:Date.now(),m:subjId()||null,by:u?u.id:null});store.set('history',h.slice(-400))}
@@ -1391,7 +1400,7 @@ let alerts=store.get('alerts_'+(subjId()||'x'),{});
 const maxLv=()=>Math.max(0,...Object.values(alerts).map(a=>a.lvl));
 const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function setAlert(k,l,title,msg){if(muteAlerts)return;const had=JSON.stringify(alerts[k]&&[alerts[k].lvl,alerts[k].msg]);if(l>0)alerts[k]={lvl:l,title,msg,ts:Date.now()};else delete alerts[k];if(had!==JSON.stringify(alerts[k]&&[alerts[k].lvl,alerts[k].msg])){store.set('alerts_'+(subjId()||'x'),alerts);syncHealth()}badge();if(!$('#v-watch').hidden)watchList()}
-function badge(){const n=Object.keys(alerts).length,b=$('#wBadge');if(!b)return;b.hidden=!n;b.textContent=n;b.style.background=LV[maxLv()].c;$('#wTxt').textContent=n?`พบ ${n} รายการที่ต้องเฝ้าระวัง · ระดับสูงสุด: ${LV[maxLv()].n}`:'ตรวจความดัน น้ำตาล BMI ความเครียด และกลุ่มเสี่ยง'}
+function badge(){const n=Object.keys(alerts).length,b=$('#wBadge');if(!b)return;b.hidden=!n;b.textContent=n;b.style.background=LV[maxLv()].c;$('#wTxt').textContent=n?`พบ ${n} รายการ · สูงสุด: ${LV[maxLv()].n}`:'แจ้งเตือนภาวะเสี่ยง'}
 function alertNote(k){const a=alerts[k];if(!a)return '';return `<div class="status q2" style="margin-top:10px"><span>!</span><span>บันทึกเข้าระบบเฝ้าระวังแล้ว (ระดับ ${LV[a.lvl].n}) <button class="btn ghost" style="min-height:38px;margin-left:6px" data-go="watch">ดูและแจ้ง รพ.สต.</button></span></div>`}
 const ACT=['','ติดตามค่าซ้ำ ปรับพฤติกรรมตามคำแนะนำในแอป','พบเจ้าหน้าที่ รพ.สต. โดยเร็ว (ภายใน 1–3 วัน) และกดแจ้ง รพ.สต. ด้านล่าง','ไปสถานพยาบาลหรือโทร 1669 / 1323 ทันที แล้วแจ้ง รพ.สต.'];
 function watchList(){
@@ -1671,7 +1680,7 @@ function applyMember(){
   $('#uOut').hidden=false;
   applySubject();
   $('#consoleTile').hidden=u.role==='client';$('#lookupTile').hidden=u.role==='client';nfStart();$('#helloTxt').textContent='สวัสดี คุณ'+u.name.split(' ')[0]+' วันนี้ดูแลสุขภาพกันนะ';
-  if(u.role!=='client')$('#conTxt').textContent=u.role==='staff'?'ภาพรวมทั้งหมด ข้อมูลผู้รับบริการ ผลประเมิน ความพึงพอใจ ความช่วยเหลือ พิกัดบ้าน':'ข้อมูลผู้รับบริการ ภาวะเสี่ยง และการขอความช่วยเหลือในพื้นที่';
+  if(u.role!=='client')$('#conTxt').textContent=u.role==='staff'?'ภาพรวมทั้งหมด ผู้รับบริการ ผลประเมิน':'ผู้รับบริการในพื้นที่ ภาวะเสี่ยง';
   usageInit();if(!u.synced&&db)pushMember(u);
   authRender();
 }
@@ -1843,7 +1852,7 @@ function hSummary(){try{
 function banner(){
   const a0=me(),s=subj();
   const on=!!(a0&&s&&s.id!==a0.id);
-  const t=$('#pplTxt');if(t)t.textContent=on?`กำลังประเมินให้: ${s.name}`:'กำลังประเมินให้: ตัวฉันเอง · เพิ่มผู้รับบริการที่ไม่มีมือถือ';
+  const t=$('#pplTxt');if(t)t.textContent=on?`กำลังทำแทน: ${s.name}`:'ตัวฉันเอง · เพิ่มผู้รับบริการ';
   tick();
 }
 function applySubject(){
@@ -1852,7 +1861,7 @@ function applySubject(){
   ['w','h','wc','bp-s','bp-d','hbp-s','hbp-d','gl-v'].forEach(i=>{const e=$('#'+i);if(e)e.value=''});
   $$('input[name=sex]').forEach(r=>r.checked=false);
   $$('#spChk input').forEach(c=>c.checked=false);$$('#envChk input').forEach(c=>c.checked=false);
-  window._stLast=null;window._sum={};stRender();qz.i=0;qz.ans=[];qz.res=null;shop.ans=[];shop.res=null;evSent=null;
+  window._stLast=null;window._sum={};stRender();mhReset();qz.i=0;qz.ans=[];qz.res=null;shop.ans=[];shop.res=null;evSent=null;
   Object.keys(arT).forEach(k=>clearTimeout(arT[k]));
   bmiCalc();vitalsCalc();spCalc();envCalc();
   muteAlerts=false;
@@ -1914,7 +1923,7 @@ function mapPick(){
 }
 
 /* ================= SUMMARY (สรุปผลทั้งหมด) ================= */
-const SUMK=[['bmi','ดัชนีมวลกาย (BMI)','⚖️'],['bp','ความดันโลหิต','🩺'],['glu','น้ำตาลในเลือด','🩸'],['st5','ความเครียด ST-5','🧠'],['special','กลุ่มเสี่ยงที่ต้องเฝ้าระวัง','⚠️'],['envcheck','ตรวจสิ่งแวดล้อมร้านเอง','🌿'],['quiz','ทดสอบความรู้','📝'],['shop','ประเมินร้านชำ','🛒'],['eval','ความพึงพอใจ','⭐'],['help','ขอความช่วยเหลือ','🆘']];
+const SUMK=[['bmi','ดัชนีมวลกาย (BMI)','⚖️'],['bp','ความดันโลหิต','🩺'],['glu','น้ำตาลในเลือด','🩸'],['st5','ความเครียด ST-5','🧠'],['q2','2Q Plus (คัดกรองซึมเศร้า)','💬'],['q9','9Q (ซึมเศร้า)','📋'],['q8','8Q (เสี่ยงฆ่าตัวตาย)','🛟'],['mind6','MIND-6 (สังเกตอาการโรคจิต)','👁️'],['assist','ASSIST-LITE (สารเสพติด)','🚭'],['special','กลุ่มเสี่ยงที่ต้องเฝ้าระวัง','⚠️'],['envcheck','ตรวจสิ่งแวดล้อมร้านเอง','🌿'],['quiz','ทดสอบความรู้','📝'],['shop','ประเมินร้านชำ','🛒'],['eval','ความพึงพอใจ','⭐'],['help','ขอความช่วยเหลือ','🆘']];
 function sumRender(){
   const a0=me(),sj=subj();if(!sj)return;
   const H=store.get('history',[]).filter(x=>x.m===sj.id&&x.k!=='reg').sort((a,b)=>b.ts-a.ts);
@@ -2052,6 +2061,103 @@ $('#nt-go').onclick=async()=>{const t=$('#nt-tok').value.trim();if(!t)return;REA
   try{await sheetGet('members');try{sessionStorage.setItem('rt',t)}catch(e){}$('#nt-msg').textContent='✓ เชื่อมต่อแล้ว';await nfLoad()}catch(e){READTOK=null;$('#nt-msg').textContent='รหัสไม่ถูกต้อง หรือเชื่อมต่อไม่ได้'}};
 try{READTOK=sessionStorage.getItem('rt')||READTOK}catch(e){}
 function nfStart(){const u=me();clearInterval(nfT);nfT=null;$('#bell').hidden=!(u&&u.role!=='client');if(!u||u.role==='client'){$('#nfBanner').hidden=true;return}nfLoad();nfT=setInterval(nfLoad,60000)}
+
+
+/* ================= แบบประเมินสุขภาพจิต 2Q Plus · 9Q · 8Q · MIND-6 · ASSIST-LITE (คู่มือกรมสุขภาพจิต โครงการวิจัยที่ 2) ================= */
+const OPT9=[['ไม่มีเลย',0],['เป็นบางวัน (1–7 วัน)',1],['เป็นบ่อย (> 7 วัน)',2],['เป็นทุกวัน',3]];
+const YN=[['ไม่ใช่',0],['ใช่',1]];
+const AS=[
+ {g:'tob',n:'ยาสูบ',cut:2,qs:['คุณสูบบุหรี่/ผลิตภัณฑ์จากยาสูบหรือไม่','คุณมักจะสูบมากกว่า 10 มวนต่อวันหรือไม่','คุณมักจะสูบภายใน 30 นาทีหลังตื่นนอนหรือไม่']},
+ {g:'alc',n:'แอลกอฮอล์',cut:3,qs:['คุณดื่มเครื่องดื่มแอลกอฮอล์หรือไม่','ในแต่ละครั้งที่คุณดื่ม คุณดื่มมากกว่า 4 หน่วยมาตรฐานหรือไม่ (1 หน่วย ≈ ไวน์ 1 แก้ว 100 ซีซี, เบียร์ 1 กระป๋อง หรือเหล้าขาว/แดง 1 ถ้วยยา 30 ซีซี)','คุณเคยพยายามที่จะควบคุม ลด หรือหยุดดื่ม แต่ทำไม่สำเร็จหรือไม่','เคยมีใครแสดงความเป็นห่วงเกี่ยวกับการดื่มแอลกอฮอล์ของคุณหรือไม่']},
+ {g:'can',n:'กัญชา',cut:2,qs:['คุณใช้กัญชาหรือไม่','คุณเคยมีความอยากหรือความต้องการอย่างแรงกล้าที่จะใช้กัญชาอย่างน้อยสัปดาห์ละครั้งหรือไม่','เคยมีใครแสดงความเป็นห่วงเกี่ยวกับการใช้กัญชาของคุณหรือไม่']},
+ {g:'sti',n:'ยากระตุ้นประสาท (ยาบ้า/ยาอี/ไอซ์/โคเคน)',cut:2,qs:['คุณใช้ยากระตุ้นประสาท เช่น ยาบ้า/ยาอี/ไอซ์/หรือโคเคนหรือยากระตุ้นประสาทอื่น ๆ ที่แพทย์ไม่ได้สั่งให้ หรือไม่','คุณใช้ยานี้อย่างน้อยสัปดาห์ละครั้งหรือบ่อยกว่านั้น หรือไม่','เคยมีใครแสดงความเป็นห่วงเกี่ยวกับการใช้ยาบ้า/ยาอี/ไอซ์ของคุณหรือไม่']},
+ {g:'sed',n:'ยากล่อมประสาท/ยานอนหลับ',cut:2,qs:['คุณใช้ยากล่อมประสาท/นอนหลับโดยที่แพทย์ไม่ได้สั่งให้หรือไม่','คุณเคยมีความอยากหรือความต้องการอย่างแรงกล้าที่จะใช้ยากล่อมประสาท/ยานอนหลับอย่างน้อยสัปดาห์ละครั้งหรือไม่','เคยมีใครแสดงความเป็นห่วงเกี่ยวกับการใช้ยากล่อมประสาท/ยานอนหลับของคุณหรือไม่']},
+ {g:'opi',n:'สารกลุ่มฝิ่น (ฝิ่น/เฮโรอีน/ผงขาว)',cut:2,qs:['คุณใช้สารกลุ่มฝิ่น เช่น ฝิ่น/เฮโรอีน/ผงขาวโดยที่แพทย์ไม่ได้สั่งให้หรือไม่','คุณเคยพยายามที่จะควบคุม ลด หรือหยุดใช้ แต่ทำไม่สำเร็จหรือไม่','เคยมีใครแสดงความเป็นห่วงเกี่ยวกับการใช้ฝิ่น/เฮโรอีน/ผงขาวของคุณหรือไม่']}
+];
+const MH={
+ q2:{tab:'2Q Plus',title:'2Q Plus แบบคัดกรองกลุ่มเสี่ยงที่มีความคิดฆ่าตัวตาย',intro:'ข้อ 1–2: ใน 2 สัปดาห์ที่ผ่านมา รวมถึงวันนี้ ท่านมีอาการเหล่านี้หรือไม่ (มีอย่างน้อย 1 ข้อ = เสี่ยงซึมเศร้า) · ข้อ 3: ใน 1 เดือนที่ผ่านมา รวมถึงวันนี้ (ตอบมี = เสี่ยงฆ่าตัวตาย)',mode:'yn',yn:[['ไม่มี',0],['มี',1]],
+  qs:['ไม่สบายใจ เซ็ง ทุกข์ใจ เศร้า ท้อแท้ ซึม หงอย','เบื่อ ไม่อยากพูด ไม่อยากทำอะไร หรือทำอะไรก็ไม่สนุกเพลิดเพลินเหมือนเดิม','ท่านมีความรู้สึกทุกข์ใจจนไม่อยากมีชีวิตอยู่หรือไม่?']},
+ q9:{tab:'9Q',title:'9Q แบบคัดกรองโรคซึมเศร้า 9 คำถาม',intro:'ในช่วง 2 สัปดาห์ที่ผ่านมา รวมทั้งวันนี้ ท่านมีอาการเหล่านี้บ่อยแค่ไหน',mode:'freq',opts:OPT9,
+  qs:['เบื่อ ไม่สนใจอยากทำอะไร','ไม่สบายใจ ซึมเศร้า ท้อแท้','หลับยากหรือหลับ ๆ ตื่น ๆ หรือหลับมากไป','เหนื่อยง่ายหรือไม่ค่อยมีแรง','เบื่ออาหารหรือกินมากเกินไป','รู้สึกไม่ดีกับตัวเอง คิดว่าตัวเองล้มเหลว หรือครอบครัวผิดหวัง','สมาธิไม่ดี เวลาทำอะไร เช่น ดูโทรทัศน์ ฟังวิทยุ หรือทำงานที่ต้องใช้ความตั้งใจ','พูดช้า ทำอะไรช้าลงจนคนอื่นสังเกตเห็นได้ หรือกระสับกระส่ายไม่สามารถอยู่นิ่งได้เหมือนที่เคยเป็น','คิดทำร้ายตนเอง หรือคิดว่าถ้าตายไปคงจะดี']},
+ q8:{tab:'8Q',title:'8Q แบบประเมินการฆ่าตัวตาย 8 คำถาม',intro:'ตอบตามความจริง ไม่มีถูกผิด คำตอบนี้ช่วยให้เจ้าหน้าที่ดูแลคุณได้ทันเวลา',mode:'yn8',
+  qs:[['ในเดือนที่ผ่านมารวมทั้งวันนี้ คิดอยากตาย หรือคิดว่าตายไปจะดีกว่า',1],['ตั้งแต่เดือนก่อนจนถึงวันนี้ อยากทำร้ายตัวเองหรือทำให้ตัวเองบาดเจ็บ',2],['ตั้งแต่เดือนก่อนจนถึงวันนี้ คิดเกี่ยวกับการฆ่าตัวตาย',6],['ตั้งแต่เดือนก่อนจนถึงวันนี้ มีแผนการที่จะฆ่าตัวตาย',8],['ตั้งแต่เดือนก่อนจนถึงวันนี้ ได้เตรียมการที่จะทำร้ายตัวเองหรือเตรียมการจะฆ่าตัวตาย โดยตั้งใจว่าจะให้ตายจริง ๆ',9],['ตั้งแต่เดือนก่อนจนถึงวันนี้ ได้ทำให้ตนเองบาดเจ็บ แต่ไม่ตั้งใจที่จะทำให้เสียชีวิต',4],['ตั้งแต่เดือนก่อนจนถึงวันนี้ ได้พยายามฆ่าตัวตายโดยคาดหวัง/ตั้งใจที่จะให้ตาย',10],['ตลอดชีวิตที่ผ่านมา ท่านเคยพยายามฆ่าตัวตาย',4]],
+  ctl:'ท่านสามารถควบคุมความอยากฆ่าตัวตายที่ท่านคิดอยู่นั้นได้หรือไม่ หรือบอกได้ไหมว่าคงจะไม่ทำตามความคิดนั้นในขณะนี้'},
+ mind6:{tab:'MIND-6',title:'MIND-6 แบบสังเกตอาการโรคจิต',intro:'สำหรับ อสม. หรือผู้ดูแล สังเกตว่าบุคคลนั้นมีอาการที่พบเห็นต่อไปนี้หรือไม่ (ใช้ผ่านเมนู “ประเมินให้ผู้อื่น”)',mode:'obs',yn:[['ไม่มี',0],['มี',1]],
+  qs:['แยกตัว ไม่ยุ่งเกี่ยวกับใคร','แต่งตัวแปลก ๆ สกปรกรกรุงรัง','พูดคนเดียว เหมือนโต้ตอบกับคนอื่น','หวาดระแวงโดยไม่สมเหตุสมผล','ทำอะไรแปลก ๆ ผิดจากคนปกติ','พูดหรือบอกคนรอบข้างว่าเห็นภาพที่คนอื่นไม่เห็น']},
+ assist:{tab:'ASSIST-LITE',title:'ASSIST-LITE แบบคัดกรองการใช้สารเสพติด',intro:'คำถามต่อไปนี้เกี่ยวกับการใช้สารเสพติดใน 3 เดือนที่ผ่านมาเท่านั้น ถ้าตอบ “ไม่” ในข้อแรกของแต่ละสาร ระบบจะข้ามข้อย่อยให้',mode:'assist'}
+};
+const ASQ=[];AS.forEach(x=>x.qs.forEach((q,j)=>ASQ.push({g:x,j,q,i:ASQ.length})));ASQ.push({g:null,j:0,q:'คุณใช้สารเสพติดชนิดอื่น ๆ หรือไม่ (เช่น สารระเหย ยาอื่นที่แพทย์ไม่ได้สั่ง)',i:ASQ.length});
+let mhTool='q2',mhAns={};
+function mhReset(){mhAns={};mhTool='q2';if($('#mhTabs'))mhRender()}
+function mhScore(k){
+  const T=MH[k],a=mhAns[k]||{};
+  if(k==='q2'){if(T.qs.some((_,i)=>a[i]==null))return null;
+    const dep=a[0]===1||a[1]===1,sui=a[2]===1,lv=sui?3:dep?1:0;
+    return {sc:`${a[0]+a[1]+a[2]}/3`,lv:sui?2:lv,label:sui&&dep?'เสี่ยงซึมเศร้า และเสี่ยงฆ่าตัวตาย':sui?'เสี่ยงฆ่าตัวตาย':dep?'เสี่ยงซึมเศร้า':'ยังไม่พบความเสี่ยงจากการคัดกรองเบื้องต้น',
+     msg:(sui||dep)?'ส่งพบบุคลากรทางการแพทย์เพื่อประเมินเพิ่มเติม'+(dep?' · ทำ 9Q ต่อ':'')+(sui?' · ทำ 8Q ต่อ':''):'รักษาสุขภาพใจด้วยการพักผ่อน ออกกำลังกาย พูดคุยกับคนที่ไว้ใจ และประเมินซ้ำเมื่อรู้สึกไม่ดี',next:[...(dep?['q9']:[]),...(sui?['q8']:[])],raw:[a[0],a[1],a[2]]}}
+  if(k==='q9'){if(T.qs.some((_,i)=>a[i]==null))return null;
+    const n=T.qs.reduce((s,_,i)=>s+a[i],0);
+    const lv=n<7?0:n<13?1:n<19?2:3,label=n<7?'ไม่มีอาการของโรคซึมเศร้าหรือมีอาการระดับน้อยมาก':n<13?'มีอาการของโรคซึมเศร้าระดับน้อย':n<19?'มีอาการของโรคซึมเศร้าระดับปานกลาง':'มีอาการของโรคซึมเศร้าระดับรุนแรง';
+    return {sc:`${n}/27`,lv,label,msg:(n<7?'อาการอยู่ในเกณฑ์ปกติ ดูแลสุขภาพใจต่อไป':n<13?'ลองใช้วิธีผ่อนคลาย พูดคุยกับคนที่ไว้ใจ และปรึกษา รพ.สต. หากไม่ดีขึ้น':n<19?'ควรพบเจ้าหน้าที่ รพ.สต. เพื่อประเมินและรับการดูแลต่อ':'ควรพบแพทย์หรือเจ้าหน้าที่โดยเร็ว')+(n>=7?' · คะแนน 9Q ตั้งแต่ 7 ให้ประเมินแนวโน้มการฆ่าตัวตายด้วย 8Q':''),next:n>=7?['q8']:[],raw:T.qs.map((_,i)=>a[i])}}
+  if(k==='q8'){if(T.qs.some((_,i)=>a[i]==null)||(a[2]===1&&a.ctl==null))return null;
+    let n=0;T.qs.forEach((q,i)=>{if(a[i]===1)n+=q[1]});if(a[2]===1&&a.ctl===1)n+=8;
+    const lv=n===0?0:n<=8?1:n<=16?2:3;
+    return {sc:`${n}`,lv,label:['ไม่มีแนวโน้มฆ่าตัวตายในปัจจุบัน','แนวโน้มที่จะฆ่าตัวตายระดับน้อย','แนวโน้มที่จะฆ่าตัวตายระดับปานกลาง','แนวโน้มที่จะฆ่าตัวตายระดับรุนแรง'][lv],msg:['ไม่พบความเสี่ยง ดูแลสุขภาพใจต่อไป และขอความช่วยเหลือได้ทุกเมื่อ','ให้ญาติดูแลใกล้ชิด ติดตามเฝ้าระวังพฤติกรรมทำร้ายตนเอง และประเมินอาการทางจิตเวช (หลงผิด หวาดระแวง หูแว่ว)','ให้การช่วยเหลือทางสังคมจิตใจ แก้ไขปัญหาทุกข์ใจที่เร่งด่วน ให้ญาติดูแลใกล้ชิด ติดตามประเมินอาการทุกสัปดาห์ ถ้ารุนแรงขึ้นให้ปรึกษาโรงพยาบาลเครือข่าย','ควรรับไว้รักษาในโรงพยาบาลและเฝ้าระวังอย่างใกล้ชิดตลอด 24 ชั่วโมง ประเมินอาการทางจิตเวช ให้การช่วยเหลือทางสังคมจิตใจ หากความเสี่ยงไม่ลดลงให้ปรึกษาหรือส่งต่อโรงพยาบาลจิตเวช'][lv],next:[],raw:T.qs.map((_,i)=>a[i]).concat([a.ctl==null?'':a.ctl])}}
+  if(k==='mind6'){if(T.qs.some((_,i)=>a[i]==null))return null;
+    const n=T.qs.reduce((s,_,i)=>s+a[i],0),lv=n===0?0:n===1?1:2;
+    return {sc:`${n}/6`,lv,label:n===0?'ไม่มีความผิดปกติด้านจิตใจ':n===1?'สงสัยว่าอาจมีความผิดปกติด้านจิตใจ':'มีความเสี่ยงต่อการเกิดความผิดปกติด้านจิตใจ',msg:n===0?'ไม่พบอาการ สังเกตต่อเนื่องตามปกติ':n===1?'ให้ อสม. ประเมินซ้ำภายใน 1 เดือน':'ให้ อสม. แจ้งบุคลากรสาธารณสุขในพื้นที่ เพื่อประเมินซ้ำและให้การดูแลรักษาต่อไป',next:[],raw:T.qs.map((_,i)=>a[i])}}
+  if(k==='assist'){
+    const res=[],raw=[];let risk=[],part=false;
+    for(const x of AS){const idx=ASQ.filter(o=>o.g===x),m=a[idx[0].i];if(m==null)return null;
+      let sc=m;if(m===1){for(const o of idx.slice(1)){if(a[o.i]==null)return null;sc+=a[o.i]}}
+      res.push([x,sc]);raw.push(sc);if(sc>=x.cut)risk.push(x.n)}
+    const ot=a[ASQ.length-1];if(ot==null)return null;
+    const lv=risk.length?2:ot===1?1:0;
+    return {sc:res.map(r=>r[1]).join('/'),lv,label:risk.length?'เสี่ยง: '+risk.join(', '):ot===1?'ใช้สารอื่น ควรประเมินต่อ':'ไม่พบความเสี่ยงจากการคัดกรอง',msg:'คะแนนแต่ละสาร: '+res.map(r=>`${r[0].n} ${r[1]} (จุดตัด ${r[0].cut})`).join(' · ')+(risk.length?' · คะแนนถึงจุดตัด ควรพบเจ้าหน้าที่ รพ.สต. เพื่อประเมินต่อ':'')+(ot===1?' · ข้อ 7 (สารอื่น) ไม่ให้คะแนน แต่ให้ประเมินต่อ':''),next:[],raw:raw.concat([ot])}}
+}
+function mhOpt(name,opts,cur){return `<div class="${opts.length>2?'':'g2'}">${opts.map(o=>`<label class="opt"><input type="radio" name="${name}" value="${o[1]}" ${cur===o[1]?'checked':''}><span>${o[0]}</span></label>`).join('')}</div>`}
+function mhRender(){
+  const tabs=$('#mhTabs');
+  tabs.innerHTML=Object.keys(MH).map(k=>`<button role="tab" aria-selected="${k===mhTool}" data-mh="${k}">${MH[k].tab}</button>`).join('');
+  const T=MH[mhTool],a=mhAns[mhTool]||(mhAns[mhTool]={});
+  let h=`<h4 style="margin:6px 0 2px">${T.title}</h4><p class="cap" style="margin-top:0">${T.intro}</p><div class="prog"><i id="mhP"></i></div>`;
+  if(T.mode==='assist'){
+    h+=ASQ.map(o=>{const first=o.g&&o.j===0,vis=!o.g||o.j===0||a[ASQ.find(z=>z.g===o.g).i]===1;if(!vis)return'';
+      return (first?`<h5 style="margin:14px 0 4px;color:var(--h)">${o.g.n}</h5>`:'')+(!o.g?`<h5 style="margin:14px 0 4px;color:var(--h)">สารอื่น ๆ</h5>`:'')+`<fieldset class="q"><legend>${o.g?(o.j===0?'':o.j+'. '):''}${o.q}</legend>${mhOpt('mh'+o.i,[['ไม่',0],['ใช่',1]],a[o.i])}</fieldset>`}).join('');
+  }else{
+    const opts=T.mode==='freq'?T.opts:T.yn||YN;
+    const qText=i=>T.mode==='yn8'?T.qs[i][0]:T.qs[i];
+    h+=T.qs.map((_,i)=>`<fieldset class="q"><legend>${i+1}. ${qText(i)}</legend>${mhOpt('mh'+i,opts,a[i])}</fieldset>`+(T.mode==='yn8'&&i===2&&a[2]===1?`<fieldset class="q"><legend>ต่อเนื่องข้อ 3: ${T.ctl}</legend>${mhOpt('mhc',[['ได้',0],['ไม่ได้',1]],a.ctl)}</fieldset>`:'')).join('');
+  }
+  h+='<div id="mhOut" aria-live="polite"></div><button class="btn ghost full" id="mhReset" style="margin-top:12px" type="button">ทำใหม่</button><p class="cap">ผลนี้เป็นการคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัย ต้องให้เจ้าหน้าที่สาธารณสุขประเมินต่อ · ที่มา: คู่มือแบบประเมินคัดกรอง กรมสุขภาพจิต</p>';
+  $('#mhBody').innerHTML=h;
+  $$('#mhBody input[name^=mh]').forEach(r=>r.addEventListener('change',()=>{const nm=r.name;
+    if(nm==='mhc')a.ctl=+r.value;
+    else{const i=+nm.slice(2);a[i]=+r.value;
+      if(T.mode==='yn8'&&i===2){if(a[2]===0)delete a.ctl;mhRender();return}
+      if(T.mode==='assist'){const o=ASQ[i];if(o.g&&o.j===0&&a[i]===0)ASQ.filter(z=>z.g===o.g&&z.j>0).forEach(z=>delete a[z.i]);mhRender();return}}
+    mhResult()}));
+  $('#mhReset').onclick=()=>{mhAns[mhTool]={};delete window['_mh_'+mhTool];setAlert('mh_'+mhTool,0);mhRender()};
+  mhResult();
+}
+function mhNeed(k){const T=MH[k],a=mhAns[k]||{};
+  if(T.mode==='assist'){let tot=0,done=0;ASQ.forEach(o=>{const vis=!o.g||o.j===0||a[ASQ.find(z=>z.g===o.g).i]===1;if(vis){tot++;if(a[o.i]!=null)done++}});return [done,tot]}
+  const tot=T.qs.length+(T.mode==='yn8'&&a[2]===1?1:0);
+  return [T.qs.filter((_,i)=>a[i]!=null).length+(T.mode==='yn8'&&a[2]===1&&a.ctl!=null?1:0),tot]}
+function mhResult(){
+  const k=mhTool,T=MH[k],[done,tot]=mhNeed(k);
+  $('#mhP').style.width=done/tot*100+'%';
+  const r=mhScore(k),out=$('#mhOut');
+  if(!r){out.innerHTML=`<p class="cap">ตอบแล้ว ${done} จาก ${tot} ข้อ</p>`;return}
+  const nm=T.tab;
+  setAlert('mh_'+k,r.lv,nm+' สุขภาพจิต',`${nm} ${r.sc} · ${r.label}`);
+  const key=JSON.stringify(r.raw);
+  if(window['_mh_'+k]!==key){window['_mh_'+k]=key;autoRecord(k,`${nm} ${r.sc}`,r.label,{score:r.sc,mhLevel:r.lv,mhLabel:r.label,answers:r.raw.join(',')},500)}
+  const hot=r.lv>=2&&(k==='q8'||k==='q2'||k==='q9');
+  out.innerHTML=`<div class="res" style="border-left:6px solid ${LV[r.lv].c}"><b>ผล ${nm}: ${r.sc}</b><br><span class="pill" style="background:${LV[r.lv].c}">${r.label}</span><p style="margin:8px 0 0">${r.msg}</p>${r.next.length?`<p style="margin:10px 0 0"><b>ขั้นตอนต่อไป:</b> ทำ ${r.next.map(x=>`<button type="button" class="btn" style="min-height:40px;margin:2px" data-mh="${x}">${MH[x].tab}</button>`).join(' ')}</p>`:''}${hot?`<div class="callout warnbox" style="margin-top:10px"><b class="h">ขอความช่วยเหลือได้ตลอด</b>สายด่วนสุขภาพจิต 1323 (24 ชั่วโมง) · ฉุกเฉิน 1669 · ${HOSP_NAME} โทร ${HOSP_TEL} คุณไม่ต้องรับมือคนเดียว</div>`:''}<p class="cap" style="margin:8px 0 0">✓ บันทึกและส่งให้ รพ.สต. อัตโนมัติ</p></div>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-mh]');if(!b)return;mhTool=b.dataset.mh;mhRender();const c=$('#mhCard');if(c&&b.closest('#mhOut'))c.scrollIntoView({behavior:'smooth',block:'start'})});
+mhRender();
 
 const INIT={notif(){nfRender();nfLoad()},summary(){sumRender()},lookup(){const u=me();if(!u||u.role==='client'){go('home');return}$('#lkRes').innerHTML='';lkSel=null;if(window._lkOpen){lkSel=window._lkOpen;window._lkOpen=null;if(LK){lkDetail();lkStop();lkTimer=setInterval(lkRefresh,4000)}}},people(){proxyMode=false;$('#pplForm').innerHTML='';peopleRender()},console(){const u=me();if(!u||u.role==='client'){go('home');return}cOpen()},account(){editing=false;accRender()},watch(){watchRender()},choice(){},quiz(){if(!qz.res&&qz.i!==-1&&qz.i===0&&!qz.ans.length)qz.i=-1;quizRender()},eval(){evalRender()},health(){}};
 
